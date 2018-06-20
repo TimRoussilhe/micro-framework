@@ -22,9 +22,6 @@ class AbstractContainer extends Base {
 		* Component Class
 		* @type {Object}
 		*/
-		console.log('this.ComponentClass', this.ComponentClass);
-		console.log('this', this);
-
 		this.ComponentClass = null;
 
 		/**
@@ -47,7 +44,6 @@ class AbstractContainer extends Base {
 		// * El
 		// * @type {DOM}
 		// */
-		// this.options.el = options.el ? options.el : null;
 
 		this.promises = {
 			init: {

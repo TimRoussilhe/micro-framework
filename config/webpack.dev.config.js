@@ -29,6 +29,7 @@ module.exports = {
 		fs: 'empty',
 	},
 
+	mode: 'development',
 	entry: entryPoints,
 
 	// if multiple outputs, use [name] and it will use the name of the entry point, and loop through them
@@ -38,8 +39,12 @@ module.exports = {
 		publicPath: 'assets/js/',
 	},
 
+	optimization:{
+		noEmitOnErrors: true, // NoEmitOnErrorsPlugin
+	},
+
 	plugins: [
-		new webpack.NoEmitOnErrorsPlugin(),
+		// new webpack.NoEmitOnErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('development'),
@@ -72,24 +77,18 @@ module.exports = {
 			'public/assets/',
 			'node_modules',
 		],
-		alias: {
-			// Modernizr: path.join(__dirname, '/../src/js/vendors/modernizr.custom'),
-		},
 	},
 
 	module: {
 		rules: [
 			{
-				test: /\.js?$/,
+				test: /\.js$/,
 				exclude: /(node_modules|bower_components)/,
-				loader: 'babel-loader',
+				use: {
+					loader: 'babel-loader',
+				},
 			},
-			{test: /\.json$/, loader: 'json-loader'},
-			{test: /\.twig$/, loader: 'twig-loader'},
-			// {
-			// 	test: path.join(__dirname, '/../node_modules/zepto/dist/zepto.js'),
-			// 	use: 'imports-loader?this=>window',
-			// },
+			{test: /\.twig$/, use: 'twig-loader'},
 		],
 	},
 

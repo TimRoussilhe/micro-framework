@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-// const ManifestPlugin = require('webpack-manifest-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
 
 const appEntryPoint = path.join(__dirname, '../src/scripts/app/index.js');
@@ -25,7 +25,7 @@ module.exports = {
 	node: {
 		fs: 'empty',
 	},
-
+	mode: 'production',
 	entry: entryPoints,
 
 	// if multiple outputs, use [name] and it will use the name of the entry point, and loop through them
@@ -35,29 +35,31 @@ module.exports = {
 		publicPath: 'assets/js/',
 	},
 
+	optimization: {
+		noEmitOnErrors: true,
+		concatenateModules: true,
+		minimizer: [
+			new UglifyJsPlugin({
+				uglifyOptions:{
+					compress: {
+						drop_console: true,
+						warnings: false,
+					},
+					ie8: false,
+					keep_classnames: false,
+					keep_fnames: false,
+					output: {
+						comments: false,
+					},
+				},
+			}),
+		],
+	},
+
 	plugins: [
-		new webpack.optimize.ModuleConcatenationPlugin(),
-		new webpack.NoEmitOnErrorsPlugin(),
 		new webpack.DefinePlugin({
 				 'process.env.NODE_ENV': JSON.stringify('production'),
 		}),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				screw_ie8: true,
-				drop_console: true,
-				warnings: false,
-			},
-			mangle: {
-				screw_ie8: true,
-			},
-			output: {
-				comments: false,
-				screw_ie8: true,
-			},
-		}),
-		// new ManifestPlugin({
-		// 	fileName: 'assets.json',
-		// }),
 		new WebpackBundleSizeAnalyzerPlugin(reportPath),
 	],
 
@@ -73,9 +75,6 @@ module.exports = {
 			'public/assets/',
 			'node_modules',
 		],
-		alias: {
-			// Modernizr: path.join(__dirname, '/../src/js/vendors/modernizr.custom'),
-		},
 	},
 
 	module: {
@@ -83,10 +82,9 @@ module.exports = {
 			{
 				test: /\.js?$/,
 				exclude: /(node_modules|bower_components)/,
-				loader: 'babel-loader',
+				use: 'babel-loader',
 			},
-			{test: /\.json$/, loader: 'json-loader'},
-			{test: /\.twig$/, loader: 'twig-loader'},
+			{test: /\.twig$/, use: 'twig-loader'},
 		],
 	},
 

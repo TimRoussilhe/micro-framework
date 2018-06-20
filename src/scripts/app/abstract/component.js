@@ -25,7 +25,6 @@ class Component extends Base {
 	}
 
 	get events() {
-		console.log('get events');
 		return this._events;
 	}
 
