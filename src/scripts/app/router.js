@@ -73,6 +73,7 @@ class Router {
 
 			// Setup routing from Routes JSON
 			for (let key in routes) {
+				console.log('routes', routes);
 
 				if (!routes.hasOwnProperty(key)) continue;
 				let route = routes[key];
@@ -104,10 +105,8 @@ class Router {
 	 * Navigate using the router
 	 */
 	navigate(url, options = {}) {
-		console.log('navigate url', url );
 
 		if (!isString(url)) return false;
-
 		// if absolute, make sure to add the root
 		if (url.indexOf(window.location.origin) >= 0) {
 			url = url.replace(window.location.origin, '');

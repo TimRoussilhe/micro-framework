@@ -45,7 +45,7 @@ class PageContainer extends AbstractContainer {
 				this.promises.data.resolve();
 			})
 			.catch((error) => {
-				his.promises.data.reject();
+				this.promises.data.reject();
 			});
 
 	}
