@@ -442,6 +442,7 @@ class Component extends Base {
 		this.el = null;
 		this._events = {};
 		// this.events = {};
+		super.dispose();
 		// TODO Check this to make sure event are properly removed
 	}
 }
