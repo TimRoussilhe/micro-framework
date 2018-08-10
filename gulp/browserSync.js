@@ -1,22 +1,22 @@
-// let browserSync = require('browser-sync').create();
-// const watch = require('gulp-watch');
-// const runSequence = require('run-sequence');
+let browserSync = require('browser-sync').create();
+const watch = require('gulp-watch');
+const runSequence = require('run-sequence');
 
-// module.exports = function(gulp, $) {
+module.exports = function(gulp, $) {
 
-// 	return {
-// 		default: () => {
+	return {
+		default: () => {
 
-// 			browserSync.init({
-// 				proxy: '127.0.0.1:8000',
-// 				files: ['public/**/*.*'],
-// 				browser: 'google chrome',
-// 			});
+			browserSync.init({
+				proxy: '127.0.0.1:8000',
+				files: ['public/**/*.*'],
+				browser: 'google chrome',
+			});
 
-// 			gulp.watch('./src/css/**/**/*.scss', ['sass']);
-// 			watch('./public/assets/svgs/**/*.svg', () => {
-// 				runSequence('svgs-to-json');
-// 			});
-// 		},
-// 	};
-// };
+			gulp.watch('./src/css/**/**/*.scss', ['sass']);
+			watch('./public/assets/svgs/**/*.svg', () => {
+				runSequence('svgs-to-json');
+			});
+		},
+	};
+};

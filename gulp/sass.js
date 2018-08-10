@@ -4,14 +4,10 @@ const options = JSON.parse(fs.readFileSync('./postcss-options.json'));
 
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
-// const stylus = require('gulp-stylus');
 const browserSync = require('browser-sync').create();
 const autoprefixer = require('gulp-autoprefixer');
-// const poststylus = require('poststylus');
 
 const sass = require('gulp-sass');
-
-console.log('options.autoprefixer', options.autoprefixer);
 
 module.exports = (gulp, $) => {
 	return () => {

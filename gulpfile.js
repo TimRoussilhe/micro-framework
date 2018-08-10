@@ -6,17 +6,7 @@ function getTask(task, options) {
 	return require('./gulp/' + task)(gulp, plugins, options);
 }
 
-// gulp.task('browserSync', getTask('browserSync').default);
-let browserSync = require('browser-sync').create();
-
-// Static server
-gulp.task('browserSync', function() {
-	browserSync.init({
-		proxy: '127.0.0.1:8000',
-		files: ['public/**/*.*'],
-		browser: 'google chrome',
-	});
-});
+gulp.task('browserSync', getTask('browserSync').default);
 
 gulp.task('svgs-to-json', getTask('svgs-to-json'));
 gulp.task('sass', getTask('sass'));
